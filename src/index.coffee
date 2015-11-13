@@ -4,17 +4,21 @@ Promise = require('promise')
 
 class ChuckNorrisApi
 
-  getCount: ->
-    return new Promise((resolve, reject) ->
-      count = Http.get 'http://api.icndb.com/jokes/count/', (response) ->
-        # Continuously update stream with data
+  constructor: -> @apiHost = 'http://api.icndb.com/'
+
+  getCount: -> @_requestData 'jokes/count'
+
+  getRandom: -> @_requestData 'jokes/count'
+
+  _requestData: (resource) ->
+    return new Promise(((resolve, reject)->
+      Http.get "#{@apiHost}#{resource}", (response) ->
         body = ''
         response.on 'data', (d) ->
           body += d
         response.on 'end', ->
-          # Data reception is done, do whatever with it!
           data = JSON.parse body
-          resolve(data.value)
-    )
+          resolve(data)
+    ).bind(this))
 
 module.exports = ChuckNorrisApi
