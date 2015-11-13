@@ -1,5 +1,10 @@
 module.exports = (grunt) ->
-  # Project configuration.
+
+  grunt.loadNpmTasks('grunt-coffeelint')
+  grunt.loadNpmTasks('grunt-contrib-coffee')
+  grunt.loadNpmTasks('grunt-contrib-uglify')
+  grunt.loadNpmTasks('grunt-mocha-test')
+
   grunt.initConfig
     pkg: grunt.file.readJSON('package.json')
     coffee:
@@ -10,12 +15,13 @@ module.exports = (grunt) ->
       app: ['src/*.coffee']
     mochaTest:
       test:
+        options:
+          reporter: 'nyan'
         src: ['test/**/*.coffee']
+    uglify:
+      my_target:
+        files:
+          'dist/index.min.js': ['dist/index.js']
 
-  # Coffee Converter
-  grunt.loadNpmTasks('grunt-contrib-coffee')
-  grunt.loadNpmTasks('grunt-coffeelint')
-  grunt.loadNpmTasks('grunt-mocha-test')
 
-  # Build JS
-  grunt.registerTask('default', ['mochaTest', 'coffeelint', 'coffee'])
+  grunt.registerTask('default', ['mochaTest', 'coffeelint', 'coffee', 'uglify'])
