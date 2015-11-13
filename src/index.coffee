@@ -17,4 +17,4 @@ class ChuckNorrisApi
           resolve(data.value)
     )
 
-module.export = ChuckNorrisApi
+module.exports = ChuckNorrisApi
