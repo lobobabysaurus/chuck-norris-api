@@ -23,6 +23,7 @@
     "url": "https://github.com/lobobabysaurus/chuck-norris-api/issues"
   },
   "dependencies": {
+    "chai": "^3.4.1",
     "coffeelint": "^1.13.1",
     "express": "^4.13.3",
     "grunt": "^0.4.5",
