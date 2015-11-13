@@ -4,11 +4,13 @@ Promise = require('promise')
 
 class ChuckNorrisApi
 
-  constructor: -> @apiHost = 'http://api.icndb.com/'
+  constructor: -> @apiHost = 'http://api.icndb.com/jokes/'
 
-  getCount: -> @_requestData 'jokes/count'
+  getAllJokes: -> @_requestData('')
 
-  getRandom: -> @_requestData 'jokes/count'
+  getCount: -> @_requestData 'count'
+
+  getRandom: -> @_requestData 'random'
 
   _requestData: (resource) ->
     return new Promise(((resolve, reject)->
