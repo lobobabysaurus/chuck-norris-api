@@ -12,6 +12,8 @@ class ChuckNorrisApi
 
   getCount: -> @_requestData 'jokes/count'
 
+  getJoke: (joke_id) -> @_requestData "jokes/#{joke_id}"
+
   getRandom: -> @_requestData 'jokes/random'
 
   _requestData: (resource) ->

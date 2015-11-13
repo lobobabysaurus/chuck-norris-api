@@ -29,3 +29,13 @@ describe 'Chuck Api Reader', ->
     it 'should return a random joke', ->
       @chuck.getRandom().then (random) ->
         assert.equal random.type, "success", "Random joke request unsucccesful"
+
+  describe 'specific', ->
+    it 'should return a specific joke by Id', ->
+      @chuck.getJoke(69).then (joke) ->
+        assert.equal joke.type, "success",
+          "Specific joke request unsucccesful"
+        assert.equal joke.value.joke,
+          "Scientists have estimated that the energy given off during the " +
+          "Big Bang is roughly equal to 1CNRhK (Chuck Norris Roundhouse Kick).",
+          "Unexpected specific joke text"
