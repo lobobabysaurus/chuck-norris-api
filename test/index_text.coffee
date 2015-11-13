@@ -30,7 +30,25 @@ describe 'Chuck Api Reader', ->
       @chuck.getRandom().then (random) ->
         random.type.should.equal "success", "Random joke request unsucccesful"
         random.value.joke.should.contain "Chuck",
-          "Random joke is a Chuck Norris joke"
+          "Random joke not a Chuck Norris joke"
+
+    it 'should return a random joke with new first name', ->
+      @chuck.getRandom("Phil").then (random) ->
+        random.type.should.equal "success", "Random joke request unsucccesful"
+        random.value.joke.should.contain "Phil",
+          "Random joke not a Chuck Norris joke with new first name"
+
+    it 'should return a random joke with new last name', ->
+      @chuck.getRandom(null, "Simmons").then (random) ->
+        random.type.should.equal "success", "Random joke request unsucccesful"
+        random.value.joke.should.contain "Simmons",
+          "Random joke not a Chuck Norris joke with new last name"
+
+    it 'should return a random joke with new full name', ->
+      @chuck.getRandom("Phil", "Simmons").then (random) ->
+        random.type.should.equal "success", "Random joke request unsucccesful"
+        random.value.joke.should.contain "Phil Simmons",
+          "Random joke not a Chuck Norris joke with new full name"
 
   describe 'specific', ->
     it 'should return a specific joke by Id', ->
@@ -47,7 +65,7 @@ describe 'Chuck Api Reader', ->
         joke.value.joke.should.equal "Scientists have estimated that the "+
           "energy given off during the Big Bang is roughly equal to 1CNRhK "+
           "(Phil Norris Roundhouse Kick).",
-          "Unexpected specific joke text"
+          "Unexpected specific joke text with new first name"
 
     it 'should return a specific joke by Id with new last name', ->
       @chuck.getJoke(69, null, "Simmons").then (joke) ->
@@ -55,7 +73,7 @@ describe 'Chuck Api Reader', ->
         joke.value.joke.should.equal "Scientists have estimated that the "+
           "energy given off during the Big Bang is roughly equal to 1CNRhK "+
           "(Chuck Simmons Roundhouse Kick).",
-          "Unexpected specific joke text"
+          "Unexpected specific joke text with new last name"
 
     it 'should return a specific joke by Id with new first and last name', ->
       @chuck.getJoke(69, "Phil", "Simmons").then (joke) ->
@@ -63,4 +81,4 @@ describe 'Chuck Api Reader', ->
         joke.value.joke.should.equal "Scientists have estimated that the "+
           "energy given off during the Big Bang is roughly equal to 1CNRhK "+
           "(Phil Simmons Roundhouse Kick).",
-          "Unexpected specific joke text"
+          "Unexpected specific joke text with new full name"

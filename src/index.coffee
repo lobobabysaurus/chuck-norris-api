@@ -13,11 +13,12 @@ class ChuckNorrisApi
   getCount: -> @_requestData 'jokes/count'
 
   getJoke: (joke_id, first, last) ->
-    resource = @_addNamesToResource("jokes/#{joke_id}", first, last)
+    resource = @_addNamesToResource "jokes/#{joke_id}", first, last
     @_requestData resource
 
-
-  getRandom: -> @_requestData 'jokes/random'
+  getRandom: (first, last) ->
+    resource = @_addNamesToResource "jokes/random", first, last
+    @_requestData resource
 
   _addNamesToResource: (resource, first, last) ->
     if first and last
