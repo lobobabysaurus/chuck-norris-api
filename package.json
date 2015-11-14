@@ -15,7 +15,8 @@
     "Norris",
     "API",
     "Jokes",
-    "Funny"
+    "Funny",
+    "YuiDoc"
   ],
   "author": "Philip Simmons and Goeffrey Pitman",
   "license": "BSD-2-Clause",
@@ -32,6 +33,7 @@
     "grunt-contrib-coffee": "^0.13.0",
     "grunt-contrib-uglify": "^0.10.1",
     "grunt-mocha-test": "^0.12.7",
+    "lodash": "^3.10.1",
     "mocha": "^2.3.3",
     "promise": "^7.0.4"
   }
