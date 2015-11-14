@@ -25,8 +25,8 @@ class ChuckNorrisApi
   # @param {Object} options All available filter parameters. Currently supports
   #  *first* and *last* as replacements for Chuck's first and last name in jokes
   # @return {Object} Json object with all jokes.  Follows the format:
-  #   {type:"success", value: [{id: 1, joke: "Some chuck norris joke",
-  #   categories:[category1,...]},...]}
+  #   `{type:"success", value: [{id: 1, joke: "Some chuck norris joke",
+  #   categories:[category1,...]},...]}`
   ###
   getAllJokes: (options)->
     @_requestData(@_addNamesToResource "jokes/", options)
@@ -36,7 +36,7 @@ class ChuckNorrisApi
   #
   # @method getCategories
   # @return {Object} All available categories. Follows the format
-  #   {type:"success", value: ['category1',...]}
+  #   `{type:"success", value: ['category1',...]}``
   ###
   getCategories: -> @_requestData 'categories'
 
@@ -46,7 +46,7 @@ class ChuckNorrisApi
   #
   # @method getCount
   # @return {Object} Total number of jokes. Follows the format
-  #   {type:"success", value: 494}
+  #   `{type:"success", value: 494}`
   ###
   getCount: -> @_requestData 'jokes/count'
 
@@ -58,8 +58,8 @@ class ChuckNorrisApi
   # @param {Object} options All available filter parameters. Currently supports
   #  *first* and *last* as replacements for Chuck's first and last name in jokes
   # @return {Object} Json object with all jokes.  Follows the format:
-  #   {type:"success", value: {id: 1, joke: "Some chuck norris joke",
-  #   categories:[category1,...]}}
+  #   `{type:"success", value: {id: 1, joke: "Some chuck norris joke",
+  #   categories:[category1,...]}}`
   ###
   getJoke: (joke_id, options) ->
     @_requestData(@_addNamesToResource "jokes/#{joke_id}", options)
@@ -72,10 +72,10 @@ class ChuckNorrisApi
   #  *first* and *last* as replacements for Chuck's first and last name in
   #  jokes, as well as *number* for the number of random jokes to retrieve
   # @return {Object} Json object with the joke.  Follows the format:
-  #   {type:"success", value: {id: 1, joke: "Some chuck norris joke",
-  #   categories:[category1,...]}} for individual joke and {type:"success",
+  #   `{type:"success", value: {id: 1, joke: "Some chuck norris joke",
+  #   categories:[category1,...]}}` for individual joke and `{type:"success",
   #   value: [{id: 1, joke: "Some chuck norris joke",
-  #   categories:[category1,...]}]} for multiple jokes
+  #   categories:[category1,...]}]}` for multiple jokes
   ###
   getRandom: (options) ->
     resource_root = "jokes/random"

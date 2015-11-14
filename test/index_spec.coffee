@@ -85,6 +85,12 @@ describe 'Chuck Api Reader', ->
         random.value.joke.should.contain "Phil Simmons",
           "Random joke not a Chuck Norris joke with new full name"
 
+    it 'should return multiple random jokes with rename when specified', ->
+      @chuck.getRandom({number:3, first:"Phil", last:"Simmons"}).then (random)->
+        random.type.should.equal "success", "Random joke request unsucccesful"
+        random.value[0].joke.should.contain "Phil Simmons",
+          "Random joke not a Chuck Norris joke with new full name"
+
   describe 'specific', ->
     it 'should return a specific joke by Id', ->
       @chuck.getJoke(469).then (joke) ->
