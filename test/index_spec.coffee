@@ -6,9 +6,8 @@ before ->
 
 describe 'Chuck Api Reader', ->
   describe 'all', ->
-    it 'should return the corret number of jokes', ->
+    it 'should return the correct number of jokes', ->
       @chuck.getAllJokes().then (jokes) ->
-        console.log(jokes.value[455].joke)
         jokes.type.should.equal "success", "All joke request unsuccessful"
         jokes.value.length.should.equal 546,
           "Unexpected number of jokes present"

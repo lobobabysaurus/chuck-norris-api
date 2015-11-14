@@ -84,15 +84,22 @@ class ChuckNorrisApi
     @_requestData(@_addNamesToResource resource_root, options)
 
   _addNamesToResource: (resource, options) ->
-    if options?.first and options?.last
-      resource += "?firstName=#{options.first}&lastName=#{options.last}"
-    else if options?.first
-      resource += "?firstName=#{options.first}"
-    else if options?.last
-      resource += "?lastName=#{options.last}"
+    if options?.first or options?.last
+      if resource.indexOf('?') < 0
+        resource += "?"
+      if options?.first and options?.last
+        resource += "firstName=#{options.first}&lastName=#{options.last}"
+      else if options?.first
+        resource += "firstName=#{options.first}"
+      else if options?.last
+        resource += "lastName=#{options.last}"
     return resource
 
   _requestData: (resource) ->
+    if resource.indexOf('?') > -1
+      resource += "&escape=javascript"
+    else
+      resource += "?escape=javascript"
     return new Promise(((resolve, reject)->
       Http.get "#{@apiHost}#{resource}", (response) ->
         body = ''
