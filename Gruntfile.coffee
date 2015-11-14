@@ -23,5 +23,4 @@ module.exports = (grunt) ->
         files:
           'dist/index.min.js': ['dist/index.js']
 
-
   grunt.registerTask('default', ['mochaTest', 'coffeelint', 'coffee', 'uglify'])

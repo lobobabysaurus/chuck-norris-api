@@ -6,7 +6,9 @@ class ChuckNorrisApi
 
   constructor: -> @apiHost = 'http://api.icndb.com/'
 
-  getAllJokes: -> @_requestData 'jokes/'
+  getAllJokes: (first, last)->
+    resource = @_addNamesToResource "jokes/", first, last
+    @_requestData resource
 
   getCategories: -> @_requestData 'categories'
 
