@@ -61,6 +61,12 @@ describe 'Chuck Api Reader', ->
         random.value.joke.should.contain "Chuck",
           "Random joke not a Chuck Norris joke"
 
+    it 'should return multiple random jokes when specified', ->
+      @chuck.getRandom(number:3).then (random) ->
+        random.type.should.equal "success", "Random joke request unsucccesful"
+        random.value.length.should.equal 3,
+          "Unexpected number of random jokes returned"
+
     it 'should return a random joke with new first name', ->
       @chuck.getRandom(first:"Phil").then (random) ->
         random.type.should.equal "success", "Random joke request unsucccesful"

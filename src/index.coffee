@@ -1,6 +1,5 @@
 Http = require('http')
 
-_ = require('lodash')
 Promise = require('promise')
 
 ###*
@@ -30,8 +29,7 @@ class ChuckNorrisApi
   #   categories:[category1,...]},...]}
   ###
   getAllJokes: (options)->
-    resource = @_addNamesToResource "jokes/", options
-    @_requestData resource
+    @_requestData(@_addNamesToResource "jokes/", options)
 
   ###*
   # Get all jokes categories available from the icndb
@@ -64,30 +62,33 @@ class ChuckNorrisApi
   #   categories:[category1,...]}}
   ###
   getJoke: (joke_id, options) ->
-    resource = @_addNamesToResource "jokes/#{joke_id}", options
-    @_requestData resource
+    @_requestData(@_addNamesToResource "jokes/#{joke_id}", options)
 
   ###*
   # Get a random joke from the icndb
   #
   # @method getRandom
   # @param {Object} options All available filter parameters. Currently supports
-  #  *first* and *last* as replacements for Chuck's first and last name in jokes
+  #  *first* and *last* as replacements for Chuck's first and last name in
+  #  jokes, as well as *number* for the number of random jokes to retrieve
   # @return {Object} Json object with the joke.  Follows the format:
   #   {type:"success", value: {id: 1, joke: "Some chuck norris joke",
-  #   categories:[category1,...]}}
+  #   categories:[category1,...]}} for individual joke and {type:"success",
+  #   value: [{id: 1, joke: "Some chuck norris joke",
+  #   categories:[category1,...]}]} for multiple jokes
   ###
   getRandom: (options) ->
-    resource = @_addNamesToResource "jokes/random", options
-    @_requestData resource
+    resource_root = "jokes/random"
+    if options?.number
+      resource_root += "/#{options.number}"
+    @_requestData(@_addNamesToResource resource_root, options)
 
   _addNamesToResource: (resource, options) ->
-    options = _.merge({}, options)
-    if options.first and options.last
+    if options?.first and options?.last
       resource += "?firstName=#{options.first}&lastName=#{options.last}"
-    else if options.first
+    else if options?.first
       resource += "?firstName=#{options.first}"
-    else if options.last
+    else if options?.last
       resource += "?lastName=#{options.last}"
     return resource
 
