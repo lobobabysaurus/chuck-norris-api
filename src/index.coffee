@@ -23,7 +23,8 @@ class ChuckNorrisApi
   #
   # @method getAllJokes
   # @param {Object} options All available filter parameters. Currently supports
-  #  *first* and *last* as replacements for Chuck's first and last name in jokes
+  #  *firstName* and *lastName* as replacements for Chuck's first and last name
+  # in jokes
   # @return {Object} Json object with all jokes.  Follows the format:
   #   `{type:"success", value: [{id: 1, joke: "Some chuck norris joke",
   #   categories:[category1,...]},...]}`
@@ -56,7 +57,8 @@ class ChuckNorrisApi
   # @method getJoke
   # @param {Number} joke_id The id of the joke to retrieve
   # @param {Object} options All available filter parameters. Currently supports
-  #  *first* and *last* as replacements for Chuck's first and last name in jokes
+  #  *firstName* and *lastName* as replacements for Chuck's first and last name
+  #  in jokes
   # @return {Object} Json object with all jokes.  Follows the format:
   #   `{type:"success", value: {id: 1, joke: "Some chuck norris joke",
   #   categories:[category1,...]}}`
@@ -69,8 +71,8 @@ class ChuckNorrisApi
   #
   # @method getRandom
   # @param {Object} options All available filter parameters. Currently supports
-  #  *first* and *last* as replacements for Chuck's first and last name in
-  #  jokes, as well as *number* for the number of random jokes to retrieve
+  #  *firstName* and *lastName* as replacements for Chuck's first and last name
+  #  in jokes, as well as *number* for the number of random jokes to retrieve
   # @return {Object} Json object with the joke.  Follows the format:
   #   `{type:"success", value: {id: 1, joke: "Some chuck norris joke",
   #   categories:[category1,...]}}` for individual joke and `{type:"success",
@@ -84,15 +86,16 @@ class ChuckNorrisApi
     @_requestData(@_addNamesToResource resource_root, options)
 
   _addNamesToResource: (resource, options) ->
-    if options?.first or options?.last
+    if options?.firstName or options?.lastName
       if resource.indexOf('?') < 0
         resource += "?"
-      if options?.first and options?.last
-        resource += "firstName=#{options.first}&lastName=#{options.last}"
-      else if options?.first
-        resource += "firstName=#{options.first}"
-      else if options?.last
-        resource += "lastName=#{options.last}"
+      if options?.firstName and options?.lastName
+        resource += "firstName=#{options.firstName}" +
+          "&lastName=#{options.lastName}"
+      else if options?.firstName
+        resource += "firstName=#{options.firstName}"
+      else if options?.lastName
+        resource += "lastName=#{options.lastName}"
     return resource
 
   _requestData: (resource) ->

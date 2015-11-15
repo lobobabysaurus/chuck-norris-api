@@ -20,21 +20,21 @@ describe 'Chuck Api Reader', ->
           "Unexpected number of jokes present"
 
     it 'should return jokes as expected with new first name', ->
-      @chuck.getAllJokes(first:"Phil").then (jokes) ->
+      @chuck.getAllJokes(firstName:"Phil").then (jokes) ->
         jokes.type.should.equal "success", "All joke request unsuccessful"
         jokes.value[455].joke.should.equal "Phil Norris "+
           "can access private methods."
           "Unexpected number of jokes present"
 
     it 'should return jokes as expected with new last name', ->
-      @chuck.getAllJokes(last:"Simmons").then (jokes) ->
+      @chuck.getAllJokes(lastName:"Simmons").then (jokes) ->
         jokes.type.should.equal "success", "All joke request unsuccessful"
         jokes.value[455].joke.should.equal "Chuck Simmons "+
           "can access private methods."
           "Unexpected number of jokes present"
 
     it 'should return jokes as expected with new full name', ->
-      @chuck.getAllJokes({first:"Phil", last:"Simmons"}).then (jokes) ->
+      @chuck.getAllJokes({firstName:"Phil", lastName:"Simmons"}).then (jokes) ->
         jokes.type.should.equal "success", "All joke request unsuccessful"
         jokes.value[455].joke.should.equal "Phil Simmons "+
           "can access private methods."
@@ -67,25 +67,26 @@ describe 'Chuck Api Reader', ->
           "Unexpected number of random jokes returned"
 
     it 'should return a random joke with new first name', ->
-      @chuck.getRandom(first:"Phil").then (random) ->
+      @chuck.getRandom(firstName:"Phil").then (random) ->
         random.type.should.equal "success", "Random joke request unsucccesful"
         random.value.joke.should.contain "Phil",
           "Random joke not a Chuck Norris joke with new first name"
 
     it 'should return a random joke with new last name', ->
-      @chuck.getRandom(last:"Simmons").then (random) ->
+      @chuck.getRandom(lastName:"Simmons").then (random) ->
         random.type.should.equal "success", "Random joke request unsucccesful"
         random.value.joke.should.contain "Simmons",
           "Random joke not a Chuck Norris joke with new last name"
 
     it 'should return a random joke with new full name', ->
-      @chuck.getRandom({first:"Phil", last:"Simmons"}).then (random) ->
+      @chuck.getRandom({firstName:"Phil", lastName:"Simmons"}).then (random) ->
         random.type.should.equal "success", "Random joke request unsucccesful"
         random.value.joke.should.contain "Phil Simmons",
           "Random joke not a Chuck Norris joke with new full name"
 
     it 'should return multiple random jokes with rename when specified', ->
-      @chuck.getRandom({number:3, first:"Phil", last:"Simmons"}).then (random)->
+      @chuck.getRandom({number:3, firstName:"Phil", lastName:"Simmons"})
+          .then (random) ->
         random.type.should.equal "success", "Random joke request unsucccesful"
         random.value[0].joke.should.contain "Phil Simmons",
           "Random joke not a Chuck Norris joke with new full name"
@@ -99,21 +100,21 @@ describe 'Chuck Api Reader', ->
           "Unexpected specific joke text"
 
     it 'should return a specific joke by Id with new first name', ->
-      @chuck.getJoke(469, first:"Phil").then (joke) ->
+      @chuck.getJoke(469, firstName:"Phil").then (joke) ->
         joke.type.should.equal "success", "Specific joke request unsucccesful"
         joke.value.joke.should.equal "Phil Norris can unit test entire " +
           "applications with a single assert.",
           "Unexpected specific joke text with new first name"
 
     it 'should return a specific joke by Id with new last name', ->
-      @chuck.getJoke(469, last:"Simmons").then (joke) ->
+      @chuck.getJoke(469, lastName:"Simmons").then (joke) ->
         joke.type.should.equal "success", "Specific joke request unsucccesful"
         joke.value.joke.should.equal "Chuck Simmons can unit test entire " +
           "applications with a single assert."
           "Unexpected specific joke text with new last name"
 
     it 'should return a specific joke by Id with new first and last name', ->
-      @chuck.getJoke(469, {first:"Phil", last:"Simmons"}).then (joke) ->
+      @chuck.getJoke(469, {firstName:"Phil", lastName:"Simmons"}).then (joke) ->
         joke.type.should.equal "success", "Specific joke request unsucccesful"
         joke.value.joke.should.equal "Phil Simmons can unit test entire " +
           "applications with a single assert."
