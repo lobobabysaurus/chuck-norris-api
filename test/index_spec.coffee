@@ -9,7 +9,7 @@ describe 'Chuck Api Reader', ->
     it 'should return the correct number of jokes', ->
       @chuck.getAllJokes().then (jokes) ->
         jokes.type.should.equal "success", "All joke request unsuccessful"
-        jokes.value.length.should.equal 546,
+        jokes.value.length.should.be.above 500,
           "Unexpected number of jokes present"
 
     it 'should return jokes as expected', ->
@@ -40,6 +40,20 @@ describe 'Chuck Api Reader', ->
           "can access private methods."
           "Unexpected number of jokes present"
 
+    it 'should only return jokes with specified category in limitTo', ->
+      @chuck.getAllJokes({limitTo:["explicit"]}).then (jokes) ->
+        jokes.type.should.equal "success", "All joke request unsuccessful"
+        for joke in jokes.value
+          joke.categories.should.contain "explicit",
+            "Not returning jokes with proper category"
+
+    it 'should not return jokes with specified category in exclude', ->
+      @chuck.getAllJokes({exclude:["explicit"]}).then (jokes) ->
+        jokes.type.should.equal "success", "All joke request unsuccessful"
+        for joke in jokes.value
+          joke.categories.should.not.contain "explicit",
+            "Returning jokes with excluded category"
+
   describe 'categories', ->
     it 'should get all categories', ->
       @chuck.getCategories().then (categories) ->
@@ -51,7 +65,7 @@ describe 'Chuck Api Reader', ->
     it 'should return the number of jokes', ->
       @chuck.getCount().then (count) ->
         count.type.should.equal "success", "Joke count request unsuccesful"
-        count.value.should.equal 546, "Unexpected joke count recieved"
+        count.value.should.be.above 500, "Unexpected joke count recieved"
 
   describe 'random', ->
     it 'should return a random joke', ->

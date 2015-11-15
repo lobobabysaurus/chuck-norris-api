@@ -23,14 +23,14 @@ class ChuckNorrisApi
   #
   # @method getAllJokes
   # @param {Object} options All available filter parameters. Currently supports
-  #  *firstName* and *lastName* as replacements for Chuck's first and last name
-  # in jokes
+  #  *firstName* and *lastName* as strings to replace Chuck's first and last
+  #  name in jokes and *limitTo* and *exclude* as arrays to filter categories
   # @return {Object} Json object with all jokes.  Follows the format:
   #   `{type:"success", value: [{id: 1, joke: "Some chuck norris joke",
   #   categories:[category1,...]},...]}`
   ###
   getAllJokes: (options)->
-    @_requestData(@_addNamesToResource "jokes/", options)
+    @_requestData(@_addQueryToResource "jokes/", options)
 
   ###*
   # Get all jokes categories available from the icndb
@@ -64,7 +64,7 @@ class ChuckNorrisApi
   #   categories:[category1,...]}}`
   ###
   getJoke: (joke_id, options) ->
-    @_requestData(@_addNamesToResource "jokes/#{joke_id}", options)
+    @_requestData(@_addQueryToResource "jokes/#{joke_id}", options)
 
   ###*
   # Get a random joke from the icndb
@@ -83,27 +83,33 @@ class ChuckNorrisApi
     resource_root = "jokes/random"
     if options?.number
       resource_root += "/#{options.number}"
-    @_requestData(@_addNamesToResource resource_root, options)
+    @_requestData(@_addQueryToResource resource_root, options)
 
-  _addNamesToResource: (resource, options) ->
-    if options?.firstName or options?.lastName
-      if resource.indexOf('?') < 0
-        resource += "?"
-      if options?.firstName and options?.lastName
-        resource += "firstName=#{options.firstName}" +
-          "&lastName=#{options.lastName}"
-      else if options?.firstName
-        resource += "firstName=#{options.firstName}"
-      else if options?.lastName
-        resource += "lastName=#{options.lastName}"
+  ###
+  # Adds names to the query string where provided
+  #
+  # @param {String} resource Root API resource string
+  # @param {Object} options Filter parameters, currently firstName, lastName,
+  #   limitTo and exclude
+  ###
+  _addQueryToResource: (resource, options) ->
+    resource += "?escape=javascript"
+    if options?.firstName
+      resource += "&firstName=#{options.firstName}"
+    if options?.lastName
+      resource += "&lastName=#{options.lastName}"
+    if options?.limitTo
+      resource += "&limitTo=#{options.limitTo}"
+    if options?.exclude
+      resource += "&exclude=#{options.exclude}"
     return resource
 
+  ###
+  # Obtains the requested data from the API
+  # @param {String} resource API resource to request data from
+  ###
   _requestData: (resource) ->
-    if resource.indexOf('?') > -1
-      resource += "&escape=javascript"
-    else
-      resource += "?escape=javascript"
-    return new Promise(((resolve, reject)->
+    return new Promise(((resolve, reject) ->
       Http.get "#{@apiHost}#{resource}", (response) ->
         body = ''
         response.on 'data', (d) ->
@@ -111,6 +117,6 @@ class ChuckNorrisApi
         response.on 'end', ->
           data = JSON.parse body
           resolve(data)
-    ).bind(this))
+    ).bind(@))
 
 module.exports = ChuckNorrisApi
