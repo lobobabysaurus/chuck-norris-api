@@ -105,6 +105,19 @@ describe 'Chuck Api Reader', ->
         random.value[0].joke.should.contain "Phil Simmons",
           "Random joke not a Chuck Norris joke with new full name"
 
+      it 'should only return jokes with specified category in limitTo', ->
+        @chuck.getRandom({limitTo:["nerdy"]}).then (random) ->
+          random.type.should.equal "success", "All joke request unsuccessful"
+          random.categories.should.contain "nerdy",
+              "Not returning random joke with proper category"
+
+      it 'should not return jokes with specified category in exclude', ->
+        @chuck.getRandom({exclude:["explicit"]}).then (random) ->
+          for i in range(0, 1000)
+            random.type.should.equal "success", "All joke request unsuccessful"
+            joke.categories.should.not.contain "explicit",
+              "Returning random joke with excluded category"
+
   describe 'specific', ->
     it 'should return a specific joke by Id', ->
       @chuck.getJoke(469).then (joke) ->

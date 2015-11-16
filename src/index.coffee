@@ -12,6 +12,7 @@ class ChuckNorrisApi
 
   ###*
   # URL for the api server
+  #
   # @property apiHost
   # @type String
   # @default 'http://api.icndb.com/'
@@ -71,7 +72,8 @@ class ChuckNorrisApi
   #
   # @method getRandom
   # @param {Object} options All available filter parameters. Currently supports
-  #  *firstName* and *lastName* as replacements for Chuck's first and last name
+  #  *firstName* and *lastName* as strings to replace Chuck's first and last
+  #  name in jokes, *limitTo* and *exclude* as arrays to filter categories
   #  in jokes, as well as *number* for the number of random jokes to retrieve
   # @return {Object} Json object with the joke.  Follows the format:
   #   `{type:"success", value: {id: 1, joke: "Some chuck norris joke",
@@ -106,6 +108,7 @@ class ChuckNorrisApi
 
   ###
   # Obtains the requested data from the API
+  #
   # @param {String} resource API resource to request data from
   ###
   _requestData: (resource) ->
