@@ -1,6 +1,6 @@
 {
   "name": "chuck-norris-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Node JS interface library into the Internet Chuck Norris Database API ",
   "main": "dist/index.js",
   "scripts": {
@@ -24,9 +24,11 @@
     "url": "https://github.com/lobobabysaurus/chuck-norris-api/issues"
   },
   "dependencies": {
+    "promise": "^7.0.4"
+  },
+  "devDependencies": {
     "chai": "^3.4.1",
     "coffeelint": "^1.13.1",
-    "express": "^4.13.3",
     "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",
     "grunt-coffeelint": "0.0.13",
