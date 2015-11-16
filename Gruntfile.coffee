@@ -16,6 +16,7 @@ module.exports = (grunt) ->
       test:
         options:
           reporter: 'nyan'
+          timeout: 10000
         src: ['test/**/*.coffee']
 
   grunt.registerTask('default', ['mochaTest', 'coffeelint', 'coffee'])

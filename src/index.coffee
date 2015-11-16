@@ -31,7 +31,7 @@ class ChuckNorrisApi
   #   categories:[category1,...]},...]}`
   ###
   getAllJokes: (options)->
-    @_requestData(@_addQueryToResource "jokes/", options)
+    @_requestData(@_addQueryToResource 'jokes/', options)
 
   ###*
   # Get all jokes categories available from the icndb
@@ -82,7 +82,7 @@ class ChuckNorrisApi
   #   categories:[category1,...]}]}` for multiple jokes
   ###
   getRandom: (options) ->
-    resource_root = "jokes/random"
+    resource_root = 'jokes/random'
     if options?.number
       resource_root += "/#{options.number}"
     @_requestData(@_addQueryToResource resource_root, options)
@@ -95,7 +95,7 @@ class ChuckNorrisApi
   #   limitTo and exclude
   ###
   _addQueryToResource: (resource, options) ->
-    resource += "?escape=javascript"
+    resource += '?escape=javascript'
     if options?.firstName
       resource += "&firstName=#{options.firstName}"
     if options?.lastName
