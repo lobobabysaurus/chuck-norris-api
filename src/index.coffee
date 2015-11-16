@@ -3,9 +3,9 @@ Http = require('http')
 Promise = require('promise')
 
 ###*
-# Wrapper arount the [Internet Chuck Norris Database API][api-url]
+# Wrapper around the [Internet Chuck Norris Database API][api-url]
 #
-# [api-url]: http://www.icndb.com/api/
+# [api-url]: http://www.ICNDb.com/api/
 # @class ChuckNorrisApi
 ###
 class ChuckNorrisApi
@@ -15,12 +15,12 @@ class ChuckNorrisApi
   #
   # @property apiHost
   # @type String
-  # @default 'http://api.icndb.com/'
+  # @default 'http://api.ICNDb.com/'
   ###
-  constructor: -> @apiHost = 'http://api.icndb.com/'
+  constructor: -> @apiHost = 'http://api.ICNDb.com/'
 
   ###*
-  # Get all jokes that are available from the icndb
+  # Get all jokes that are available from the ICNDb
   #
   # @method getAllJokes
   # @param {Object} options All available filter parameters. Currently supports
@@ -34,17 +34,17 @@ class ChuckNorrisApi
     @_requestData(@_addQueryToResource 'jokes/', options)
 
   ###*
-  # Get all jokes categories available from the icndb
+  # Get all joke categories available from the ICNDb
   #
   # @method getCategories
   # @return {Object} All available categories. Follows the format
-  #   `{type:"success", value: ['category1',...]}``
+  #   `{type:"success", value: ['category1',...]}`
   ###
   getCategories: -> @_requestData 'categories'
 
 
   ###*
-  # Get total number of jokes on the icndb
+  # Get total number of jokes on the ICNDb
   #
   # @method getCount
   # @return {Object} Total number of jokes. Follows the format
@@ -53,7 +53,7 @@ class ChuckNorrisApi
   getCount: -> @_requestData 'jokes/count'
 
   ###*
-  # Get a specific joke from the icndb
+  # Get a specific joke from the ICNDb
   #
   # @method getJoke
   # @param {Number} joke_id The id of the joke to retrieve
@@ -68,7 +68,7 @@ class ChuckNorrisApi
     @_requestData(@_addQueryToResource "jokes/#{joke_id}", options)
 
   ###*
-  # Get a random joke from the icndb
+  # Get a random joke from the ICNDb
   #
   # @method getRandom
   # @param {Object} options All available filter parameters. Currently supports

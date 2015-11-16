@@ -11,7 +11,7 @@ module.exports = (grunt) ->
         src: ['src/*.coffee']
         dest: 'dist/index.js'
     coffeelint:
-      app: ['src/*.coffee']
+      app: ['src/*.coffee', 'test/*.coffee']
     mochaTest:
       test:
         options:
