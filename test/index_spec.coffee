@@ -1,11 +1,13 @@
 should = require('chai').should()
 Promise = require('promise')
+
 ChuckApi = require('../src/index.coffee')
 
 before ->
   @chuck = new ChuckApi()
 
 describe 'Chuck Api Reader', ->
+
   describe 'all', ->
     it 'should return the correct number of jokes', ->
       @chuck.getAllJokes().then (jokes) ->
@@ -55,6 +57,7 @@ describe 'Chuck Api Reader', ->
           joke.categories.should.not.contain 'explicit',
             'Returning jokes with excluded category'
 
+
   describe 'categories', ->
     it 'should get all categories', ->
       @chuck.getCategories().then (categories) ->
@@ -62,11 +65,13 @@ describe 'Chuck Api Reader', ->
         categories.value.should.deep.equal ['explicit', 'nerdy'],
           'Unexpected categories present'
 
+
   describe 'count', ->
     it 'should return the number of jokes', ->
       @chuck.getCount().then (count) ->
         count.type.should.equal 'success', 'Joke count request unsuccesful'
         count.value.should.be.above 500, 'Unexpected joke count recieved'
+
 
   describe 'random', ->
     it 'should return a random joke', ->
@@ -126,6 +131,7 @@ describe 'Chuck Api Reader', ->
               'Random joke request unsuccessful'
             joke.categories.should.not.contain 'explicit',
               'Returning random joke with excluded category'
+
 
   describe 'specific', ->
     it 'should return a specific joke by Id', ->
