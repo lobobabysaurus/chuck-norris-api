@@ -1,6 +1,6 @@
 {
   "name": "chuck-norris-api",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Node JS interface library into the Internet Chuck Norris Database API ",
   "main": "dist/index.js",
   "scripts": {
