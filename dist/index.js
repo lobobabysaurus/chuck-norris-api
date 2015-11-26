@@ -7,9 +7,9 @@
 
 
   /**
-   * Wrapper arount the [Internet Chuck Norris Database API][api-url]
+   * Wrapper around the [Internet Chuck Norris Database API][api-url]
    *
-   * [api-url]: http://www.icndb.com/api/
+   * [api-url]: http://www.ICNDb.com/api/
    * @class ChuckNorrisApi
    */
 
@@ -20,15 +20,15 @@
      *
      * @property apiHost
      * @type String
-     * @default 'http://api.icndb.com/'
+     * @default 'http://api.ICNDb.com/'
      */
     function ChuckNorrisApi() {
-      this.apiHost = 'http://api.icndb.com/';
+      this.apiHost = 'http://api.ICNDb.com/';
     }
 
 
     /**
-     * Get all jokes that are available from the icndb
+     * Get all jokes that are available from the ICNDb
      *
      * @method getAllJokes
      * @param {Object} options All available filter parameters. Currently supports
@@ -45,11 +45,11 @@
 
 
     /**
-     * Get all jokes categories available from the icndb
+     * Get all joke categories available from the ICNDb
      *
      * @method getCategories
      * @return {Object} All available categories. Follows the format
-     *   `{type:"success", value: ['category1',...]}``
+     *   `{type:"success", value: ['category1',...]}`
      */
 
     ChuckNorrisApi.prototype.getCategories = function() {
@@ -58,7 +58,7 @@
 
 
     /**
-     * Get total number of jokes on the icndb
+     * Get total number of jokes on the ICNDb
      *
      * @method getCount
      * @return {Object} Total number of jokes. Follows the format
@@ -71,7 +71,7 @@
 
 
     /**
-     * Get a specific joke from the icndb
+     * Get a specific joke from the ICNDb
      *
      * @method getJoke
      * @param {Number} joke_id The id of the joke to retrieve
@@ -89,7 +89,7 @@
 
 
     /**
-     * Get a random joke from the icndb
+     * Get a random joke from the ICNDb
      *
      * @method getRandom
      * @param {Object} options All available filter parameters. Currently supports
@@ -146,20 +146,22 @@
      */
 
     ChuckNorrisApi.prototype._requestData = function(resource) {
-      return new Promise((function(resolve, reject) {
-        return Http.get("" + this.apiHost + resource, function(response) {
-          var body;
-          body = '';
-          response.on('data', function(d) {
-            return body += d;
+      return new Promise((function(_this) {
+        return function(resolve, reject) {
+          return Http.get("" + _this.apiHost + resource, function(response) {
+            var body;
+            body = '';
+            response.on('data', function(d) {
+              return body += d;
+            });
+            return response.on('end', function() {
+              var data;
+              data = JSON.parse(body);
+              return resolve(data);
+            });
           });
-          return response.on('end', function() {
-            var data;
-            data = JSON.parse(body);
-            return resolve(data);
-          });
-        });
-      }).bind(this));
+        };
+      })(this));
     };
 
     return ChuckNorrisApi;

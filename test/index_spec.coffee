@@ -9,6 +9,7 @@ before ->
 describe 'Chuck Api Reader', ->
 
   describe 'all', ->
+
     it 'should return the correct number of jokes', ->
       @chuck.getAllJokes().then (jokes) ->
         jokes.type.should.equal 'success', 'All joke request unsuccessful'
@@ -59,6 +60,7 @@ describe 'Chuck Api Reader', ->
 
 
   describe 'categories', ->
+
     it 'should get all categories', ->
       @chuck.getCategories().then (categories) ->
         categories.type.should.equal 'success', 'Category request unsuccessful'
@@ -67,6 +69,7 @@ describe 'Chuck Api Reader', ->
 
 
   describe 'count', ->
+
     it 'should return the number of jokes', ->
       @chuck.getCount().then (count) ->
         count.type.should.equal 'success', 'Joke count request unsuccesful'
@@ -74,6 +77,7 @@ describe 'Chuck Api Reader', ->
 
 
   describe 'random', ->
+
     it 'should return a random joke', ->
       @chuck.getRandom().then (random) ->
         random.type.should.equal 'success', 'Random joke request unsucccesful'
@@ -134,6 +138,7 @@ describe 'Chuck Api Reader', ->
 
 
   describe 'specific', ->
+
     it 'should return a specific joke by Id', ->
       @chuck.getJoke(469).then (joke) ->
         joke.type.should.equal 'success', 'Specific joke request unsucccesful'

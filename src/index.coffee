@@ -30,7 +30,7 @@ class ChuckNorrisApi
   #   `{type:"success", value: [{id: 1, joke: "Some chuck norris joke",
   #   categories:[category1,...]},...]}`
   ###
-  getAllJokes: (options)->
+  getAllJokes: (options) ->
     @_requestData(@_addQueryToResource 'jokes/', options)
 
   ###*
@@ -112,7 +112,7 @@ class ChuckNorrisApi
   # @param {String} resource API resource to request data from
   ###
   _requestData: (resource) ->
-    return new Promise(((resolve, reject) ->
+    return new Promise (resolve, reject) =>
       Http.get "#{@apiHost}#{resource}", (response) ->
         body = ''
         response.on 'data', (d) ->
@@ -120,6 +120,5 @@ class ChuckNorrisApi
         response.on 'end', ->
           data = JSON.parse body
           resolve(data)
-    ).bind(@))
 
 module.exports = ChuckNorrisApi
