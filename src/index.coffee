@@ -121,4 +121,4 @@ class ChuckNorrisApi
           data = JSON.parse body
           resolve(data)
 
-module.exports = ChuckNorrisApi
+module.exports = new ChuckNorrisApi()
