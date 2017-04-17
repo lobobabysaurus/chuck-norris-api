@@ -1,99 +1,84 @@
 should = require('chai').should()
 Promise = require('promise')
 
-chuckApi = require('../src/index.coffee')
+api = require('../src/index.coffee')
 
 
 describe 'Chuck Api Reader', ->
 
-  describe 'all', ->
+  describe 'getAllJokes', ->
 
     it 'should return the correct number of jokes', ->
-      chuckApi.getAllJokes().then (jokes) ->
-        jokes.type.should.equal 'success', 'All joke request unsuccessful'
-        jokes.value.length.should.be.above 500,
-          'Unexpected number of jokes present'
+      api.getAllJokes().then (jokes) ->
+        jokes.type.should.equal 'success'
+        jokes.value.length.should.be.above 500
 
     it 'should return jokes as expected', ->
-      chuckApi.getAllJokes().then (jokes) ->
-        jokes.type.should.equal 'success', 'All joke request unsuccessful'
-        jokes.value[455].joke.should.equal 'Chuck Norris '+
-          'can access private methods.'
-          'Unexpected number of jokes present'
+      api.getAllJokes().then (jokes) ->
+        jokes.type.should.equal 'success'
+        jokes.value[455].joke.should.equal 'For Chuck Norris, NP-Hard = O(1).'
 
     it 'should return jokes as expected with new first name', ->
-      chuckApi.getAllJokes(firstName:'Phil').then (jokes) ->
-        jokes.type.should.equal 'success', 'All joke request unsuccessful'
-        jokes.value[455].joke.should.equal 'Phil Norris '+
-          'can access private methods.'
-          'Unexpected number of jokes present'
+      api.getAllJokes(firstName: 'Phil').then (jokes) ->
+        jokes.type.should.equal 'success'
+        jokes.value[455].joke.should.equal 'For Phil Norris, NP-Hard = O(1).'
 
     it 'should return jokes as expected with new last name', ->
-      chuckApi.getAllJokes(lastName:'Simmons').then (jokes) ->
-        jokes.type.should.equal 'success', 'All joke request unsuccessful'
-        jokes.value[455].joke.should.equal 'Chuck Simmons '+
-          'can access private methods.'
-          'Unexpected number of jokes present'
+      api.getAllJokes(lastName: 'Simmons').then (jokes) ->
+        jokes.type.should.equal 'success'
+        jokes.value[455].joke.should.equal 'For Chuck Simmons, NP-Hard = O(1).'
 
     it 'should return jokes as expected with new full name', ->
-      chuckApi.getAllJokes({firstName:'Phil', lastName:'Simmons'})
-        .then (jokes) ->
-          jokes.type.should.equal 'success', 'All joke request unsuccessful'
-          jokes.value[455].joke.should.equal 'Phil Simmons '+
-            'can access private methods.'
-            'Unexpected number of jokes present'
+      api.getAllJokes(firstName: 'Phil', lastName: 'Simmons').then (jokes) ->
+        jokes.type.should.equal 'success'
+        jokes.value[455].joke.should.equal 'For Phil Simmons, NP-Hard = O(1).'
 
     it 'should only return jokes with specified category in limitTo', ->
-      chuckApi.getAllJokes({limitTo:['explicit']}).then (jokes) ->
-        jokes.type.should.equal 'success', 'All joke request unsuccessful'
+      api.getAllJokes(limitTo: ['explicit']).then (jokes) ->
+        jokes.type.should.equal 'success'
         for joke in jokes.value
-          joke.categories.should.contain 'explicit',
-            'Not returning jokes with proper category'
+          joke.categories.should.contain 'explicit'
 
     it 'should not return jokes with specified category in exclude', ->
-      chuckApi.getAllJokes({exclude:['explicit']}).then (jokes) ->
-        jokes.type.should.equal 'success', 'All joke request unsuccessful'
+      api.getAllJokes(exclude: ['explicit']).then (jokes) ->
+        jokes.type.should.equal 'success'
         for joke in jokes.value
-          joke.categories.should.not.contain 'explicit',
-            'Returning jokes with excluded category'
+          joke.categories.should.not.contain 'explicit'
 
 
-  describe 'categories', ->
+  describe 'getCategories', ->
 
     it 'should get all categories', ->
-      chuckApi.getCategories().then (categories) ->
-        categories.type.should.equal 'success', 'Category request unsuccessful'
-        categories.value.should.deep.equal ['explicit', 'nerdy'],
-          'Unexpected categories present'
+      api.getCategories().then (categories) ->
+        categories.type.should.equal 'success'
+        categories.value.should.deep.equal ['explicit', 'nerdy']
 
 
-  describe 'count', ->
+  describe 'getCount', ->
 
     it 'should return the number of jokes', ->
-      chuckApi.getCount().then (count) ->
-        count.type.should.equal 'success', 'Joke count request unsuccesful'
-        count.value.should.be.above 500, 'Unexpected joke count recieved'
+      api.getCount().then (count) ->
+        count.type.should.equal 'success'
+        count.value.should.be.above 500
 
 
-  describe 'random', ->
+  describe 'getRandom', ->
 
     it 'should return a random joke', ->
-      chuckApi.getRandom().then (random) ->
-        random.type.should.equal 'success', 'Random joke request unsucccesful'
-        random.value.joke.should.contain 'Chuck',
-          'Random joke not a Chuck Norris joke'
+      api.getRandom().then (random) ->
+        random.type.should.equal 'success'
+        random.value.joke.should.contain 'Chuck'
 
     it 'should return multiple random jokes when specified', ->
-      chuckApi.getRandom(number:3).then (random) ->
-        random.type.should.equal 'success', 'Random joke request unsucccesful'
-        random.value.length.should.equal 3,
-          'Unexpected number of random jokes returned'
+      api.getRandom(number: 3).then (random) ->
+        random.type.should.equal 'success'
+        random.value.length.should.equal 3
 
     it 'should return a random joke with new first name', ->
       has_name = false
       for i in [1..10]
-        chuckApi.getRandom(firstName:'Phil').then (random) ->
-          random.type.should.equal 'success', 'Random joke request unsucccesful'
+        api.getRandom(firstName: 'Phil').then (random) ->
+          random.type.should.equal 'success',
           if random.value.joke.indexOf('Phil') > -1
             has_name = true
       setTimeout -> has_name.should.be.true 'Random joke not a Chuck Norris' +
@@ -102,8 +87,8 @@ describe 'Chuck Api Reader', ->
     it 'should return a random joke with new last name', ->
       has_name = false
       for i in [1..10]
-        chuckApi.getRandom(lastName:'Simmons').then (random) ->
-          random.type.should.equal 'success', 'Random joke request unsucccesful'
+        api.getRandom(lastName:'Simmons').then (random) ->
+          random.type.should.equal 'success'
           if random.value.joke.indexOf('Simmons') > -1
             has_name = true
       setTimeout -> has_name.should.be.true 'Random joke not a Chuck Norris' +
@@ -112,10 +97,9 @@ describe 'Chuck Api Reader', ->
     it 'should return a random joke with new full name', ->
       has_name = false
       for i in [1..10]
-        chuckApi.getRandom(firstName:'Phil', lastName:'Simmons')
+        api.getRandom(firstName:'Phil', lastName:'Simmons')
           .then (random) ->
-            random.type.should.equal 'success',
-              'Random joke request unsucccesful'
+            random.type.should.equal 'success'
             if random.value.joke.indexOf('Phil Simmons') > -1
               has_name = true
       setTimeout -> has_name.should.be.true 'Random joke not a Chuck Norris' +
@@ -123,49 +107,39 @@ describe 'Chuck Api Reader', ->
 
       it 'should only return jokes with specified category in limitTo', ->
         for i in [1..1000]
-          chuckApi.getRandom({limitTo:['nerdy']}).then (random) ->
-            random.type.should.equal 'success',
-              'Random joke request unsuccessful'
-            random.categories.should.contain 'nerdy',
-                'Not returning random joke with proper category'
+          api.getRandom({limitTo:['nerdy']}).then (random) ->
+            random.type.should.equal 'success'
+            random.categories.should.contain 'nerdy'
 
       it 'should not return jokes with specified category in exclude', ->
         for i in [0..1000]
-          chuckApi.getRandom({exclude:['explicit']}).then (random) ->
-            random.type.should.equal 'success',
-              'Random joke request unsuccessful'
-            joke.categories.should.not.contain 'explicit',
-              'Returning random joke with excluded category'
+          api.getRandom({exclude:['explicit']}).then (random) ->
+            random.type.should.equal 'success'
+            joke.categories.should.not.contain 'explicit'
 
 
-  describe 'specific', ->
+  describe 'getJoke', ->
 
     it 'should return a specific joke by Id', ->
-      chuckApi.getJoke(469).then (joke) ->
-        joke.type.should.equal 'success', 'Specific joke request unsucccesful'
+      api.getJoke(469).then (joke) ->
+        joke.type.should.equal 'success'
         joke.value.joke.should.equal 'Chuck Norris can unit test entire ' +
-          'applications with a single assert.',
-          'Unexpected specific joke text'
+          'applications with a single assert.'
 
     it 'should return a specific joke by Id with new first name', ->
-      chuckApi.getJoke(469, firstName:'Phil').then (joke) ->
-        joke.type.should.equal 'success', 'Specific joke request unsucccesful'
+      api.getJoke(469, firstName: 'Phil').then (joke) ->
+        joke.type.should.equal 'success'
         joke.value.joke.should.equal 'Phil Norris can unit test entire ' +
-          'applications with a single assert.',
-          'Unexpected specific joke text with new first name'
+          'applications with a single assert.'
 
     it 'should return a specific joke by Id with new last name', ->
-      chuckApi.getJoke(469, lastName:'Simmons').then (joke) ->
-        joke.type.should.equal 'success', 'Specific joke request unsucccesful'
+      api.getJoke(469, lastName: 'Simmons').then (joke) ->
+        joke.type.should.equal 'success'
         joke.value.joke.should.equal 'Chuck Simmons can unit test entire ' +
           'applications with a single assert.'
-          'Unexpected specific joke text with new last name'
 
     it 'should return a specific joke by Id with new first and last name', ->
-      chuckApi.getJoke(469, {firstName:'Phil', lastName:'Simmons'})
-        .then (joke) ->
-          joke.type.should.equal 'success',
-            'Specific joke request unsucccesful'
-          joke.value.joke.should.equal 'Phil Simmons can unit test entire ' +
-            'applications with a single assert.'
-            'Unexpected specific joke text with new full name'
+      api.getJoke(469, {firstName: 'Phil', lastName: 'Simmons'}).then (joke) ->
+        joke.type.should.equal 'success',
+        joke.value.joke.should.equal 'Phil Simmons can unit test entire ' +
+          'applications with a single assert.'

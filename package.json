@@ -1,6 +1,6 @@
 {
   "name": "chuck-norris-api",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Node JS interface library into the Internet Chuck Norris Database API",
   "main": "dist/index.js",
   "scripts": {
@@ -28,7 +28,6 @@
   },
   "dependencies": {
     "promise": "^7.0.4",
-    "yuidocjs": "^0.10.2"
   },
   "devDependencies": {
     "chai": "^3.4.1",
@@ -39,6 +38,7 @@
     "grunt-contrib-coffee": "^0.13.0",
     "grunt-mocha-test": "^0.12.7",
     "mocha": "^2.3.3",
-    "promise": "^7.0.4"
+    "promise": "^7.0.4",
+    "yuidocjs": "^0.10.2"
   }
 }
