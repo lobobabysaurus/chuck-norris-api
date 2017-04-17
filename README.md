@@ -8,8 +8,8 @@ Full technical documentation available [here][docs-url]
 
 ## Example
 ```
-var cn = require('chuck_norris_api');
-cn.getRandom(options).then(function (data) {
+const api = require('chuck_norris_api');
+api.getRandom(options).then(function (data) {
     console.log(data.value.joke);
 });
 ```

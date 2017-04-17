@@ -4,8 +4,10 @@
   "description": "Node JS interface library into the Internet Chuck Norris Database API",
   "main": "dist/index.js",
   "scripts": {
-    "build": "node_modules/grunt-cli/bin/grunt coffee",
-    "test": "node_modules/grunt-cli/bin/grunt mochaTest"
+    "build": "node_modules/.bin/grunt coffee",
+    "deploy_docs": "npm run docs && aws s3 cp --acl public-read out/ s3://www.phil-simmons.com/chuck-api-docs --recursive",
+    "docs": "npm run build && node_modules/.bin/yuidoc dist",
+    "test": "node_modules/.bin/grunt mochaTest"
   },
   "repository": {
     "type": "git",
@@ -25,7 +27,8 @@
     "url": "https://github.com/lobobabysaurus/chuck-norris-api/issues"
   },
   "dependencies": {
-    "promise": "^7.0.4"
+    "promise": "^7.0.4",
+    "yuidocjs": "^0.10.2"
   },
   "devDependencies": {
     "chai": "^3.4.1",
