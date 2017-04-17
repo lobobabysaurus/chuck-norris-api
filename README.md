@@ -14,5 +14,5 @@ api.getRandom(options).then(function (data) {
 });
 ```
 [api-url]: http://www.ICNDb.com/api/
-[docs-url]: https://phil-simmons.com/chuck-api-docs/
+[docs-url]: http://www.phil-simmons.com/chuck-api-docs/
 [promises-url]: https://www.npmjs.com/package/promise
