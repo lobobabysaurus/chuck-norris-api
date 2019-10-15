@@ -8,7 +8,7 @@ Full technical documentation available [here][docs-url]
 
 ## Example
 ```
-const api = require('chuck_norris_api');
+const api = require('chuck-norris-api');
 api.getRandom(options).then(function (data) {
     console.log(data.value.joke);
 });
